@@ -1,4 +1,4 @@
-use crate::domain::Time;
+use crate::domain::time::Time;
 use derive_more::Constructor;
 use serde::{Deserialize, Serialize};
 
