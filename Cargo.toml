@@ -17,3 +17,4 @@ chrono = { version = "0.4", features = ["serde"] }
 uuid = { version = "0", features = ["serde", "v4"] }
 derive_more = "0"
 rand = "0"
+sqlx = { version = "0.5", features = ["sqlite", "runtime-tokio-rustls", "macros", "chrono", "uuid"] }
