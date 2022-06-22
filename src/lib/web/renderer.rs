@@ -59,4 +59,3 @@ impl<'a> Renderer<'a> {
         self.0.render(path, &ctx).expect("error rendering template")
     }
 }
-                            

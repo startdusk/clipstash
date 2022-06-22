@@ -1,4 +1,6 @@
 use crate::domain::clip::ClipError;
+use rocket::{UriDisplayPath, UriDisplayQuery};
+
 use derive_more::From;
 use serde::{Deserialize, Serialize};
 
@@ -60,5 +62,14 @@ impl FromStr for ShortCode {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         Ok(Self(s.into()))
+    }
+}
+
+use rocket::request::FromParam;
+
+impl<'r> FromParam<'r> for ShortCode {
+    type Error = &'r str;
+    fn from_param(param: &'r str) -> Result<Self, Self::Error> {
+        Ok(ShortCode::from(param))
     }
 }

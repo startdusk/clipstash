@@ -19,3 +19,11 @@ derive_more = "0"
 rand = "0"
 sqlx = { version = "0.5", features = ["sqlite", "runtime-tokio-rustls", "macros", "chrono", "uuid"] }
 handlebars = "4"
+rocket = {version = "0.5.0-rc.1", features = ["json"]}
+structopt = "0.3"
+dotenv = "0.15"
+tokio = "1.8.0"
+crossbeam-channel = "0.5"
+parking_lot = "0.11"
+base64 = "0.13"
+reqwest = {version = "0.11", features=["blocking", "json", "cookies"]}
