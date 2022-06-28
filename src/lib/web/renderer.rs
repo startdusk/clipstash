@@ -12,7 +12,7 @@ impl<'a> Renderer<'a> {
     pub fn new(template_dit: std::path::PathBuf) -> Self {
         let mut renderer = handlebars::Handlebars::new();
         renderer
-            .register_template_file(".hbs", &template_dit)
+            .register_templates_directory(".hbs", &template_dit)
             .expect("failed to register handlebars templates");
         Self(renderer)
     }

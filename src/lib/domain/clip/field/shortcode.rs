@@ -6,11 +6,10 @@ use serde::{Deserialize, Serialize};
 
 use std::str::FromStr;
 
-#[derive(Debug, Clone, Deserialize, Serialize, From)]
+#[derive(Debug, Clone, Deserialize, Serialize, From, UriDisplayPath, UriDisplayQuery)]
 pub struct ShortCode(String);
 
 impl ShortCode {
-
     pub fn new() -> Self {
         use rand::prelude::*;
         let allowed_chars = [

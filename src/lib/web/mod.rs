@@ -1,6 +1,9 @@
 pub mod ctx;
 pub mod form;
+pub mod http;
 pub mod renderer;
+
+pub const PASSWORD_COOKIE: &'static str = "password";
 
 #[derive(rocket::Responder)]
 pub enum PageError {
