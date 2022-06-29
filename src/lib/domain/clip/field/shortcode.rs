@@ -6,7 +6,9 @@ use serde::{Deserialize, Serialize};
 
 use std::str::FromStr;
 
-#[derive(Debug, Clone, Deserialize, Serialize, From, UriDisplayPath, UriDisplayQuery)]
+#[derive(
+    Debug, Clone, Deserialize, Serialize, From, UriDisplayPath, UriDisplayQuery, Hash, Eq, PartialEq,
+)]
 pub struct ShortCode(String);
 
 impl ShortCode {
