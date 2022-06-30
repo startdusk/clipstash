@@ -13,8 +13,8 @@ pub use service::ServiceError;
 use data::AppDatabase;
 use rocket::fs::FileServer;
 use rocket::{Build, Rocket};
-use web::renderer::Renderer;
 use web::hitcounter::HitCounter;
+use web::renderer::Renderer;
 
 pub fn rocket(config: RocketConfig) -> Rocket<Build> {
     rocket::build()
@@ -22,8 +22,10 @@ pub fn rocket(config: RocketConfig) -> Rocket<Build> {
         .manage::<Renderer>(config.renderer)
         .manage::<HitCounter>(config.hit_counter)
         .mount("/", web::http::routes())
+        .mount("/api/clip", web::api::routes())
         .mount("/static", FileServer::from("static"))
         .register("/", web::http::catcher::catchers())
+        .register("/api/clip", web::api::catcher::catchers())
 }
 
 pub struct RocketConfig {
