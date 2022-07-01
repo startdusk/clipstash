@@ -30,3 +30,6 @@ reqwest = { version = "0.11", features = ["blocking", "json", "cookies"] }
 
 [[bin]]
 name = "httpd"
+
+[[bin]]
+name = "clipclient"
