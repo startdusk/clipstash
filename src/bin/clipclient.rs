@@ -55,9 +55,7 @@ fn get_clip(addr: &str, ask_svc: GetClip, api_key: ApiKey) -> Result<Clip, Box<d
     let addr = format!("{}/api/clip/{}", addr, ask_svc.shortcode.into_inner());
     let mut request = client.get(addr);
     request = match ask_svc.password.into_inner() {
-        Some(password) => {
-            request.header(reqwest::header::COOKIE, format!("password=={}", password))
-        }
+        Some(password) => request.header(reqwest::header::COOKIE, format!("password={}", password)),
         None => request,
     };
     request = request.header(API_KEY_HEADER, api_key.to_base64());
