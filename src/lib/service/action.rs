@@ -1,5 +1,3 @@
-use rocket::Data;
-
 use crate::data::{query, DatabasePool, Transaction};
 use crate::service::ask;
 use crate::web::api::ApiKey;

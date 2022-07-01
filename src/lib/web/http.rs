@@ -1,4 +1,4 @@
-use crate::data::{AppDatabase, DatabasePool};
+use crate::data::AppDatabase;
 use crate::service::{action, ask};
 use crate::web::{
     ctx, form, hitcounter::HitCounter, renderer::Renderer, PageError, PASSWORD_COOKIE,

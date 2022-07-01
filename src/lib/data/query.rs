@@ -137,8 +137,50 @@ pub async fn api_key_is_valid(api_key: ApiKey, pool: &DatabasePool) -> Result<bo
 pub async fn delete_expired(pool: &DatabasePool) -> Result<u64> {
     Ok(
         sqlx::query!(r#"DELETE FROM clips WHERE strftime('%s', 'now') > expires"#)
-        .execute(pool)
-        .await?
-        .rows_affected()
+            .execute(pool)
+            .await?
+            .rows_affected(),
     )
+}
+
+#[cfg(test)]
+pub mod test {
+    use crate::data::test::*;
+    use crate::data::*;
+    use crate::test::async_runtime;
+
+    fn model_new_clip(shortcode: &str) -> model::NewClip {
+        use chrono::Utc;
+        model::NewClip {
+            clip_id: DbId::new().into(),
+            content: format!("content for clip '{}'", shortcode),
+            title: None,
+            shortcode: shortcode.into(),
+            posted: Utc::now().timestamp(),
+            expires: None,
+            password: None,
+        }
+    }
+
+    #[test]
+    fn clip_new_and_get() {
+        let rt = async_runtime();
+        let db = new_db(rt.handle());
+        let pool = db.get_pool();
+
+        let test_shortcode = "bdbd4b3cb4";
+
+        let clip = rt.block_on(async move {
+            super::new_clip(model_new_clip(test_shortcode), &pool.clone()).await
+        });
+
+        assert!(dbg!(&clip).is_ok());
+        let clip = clip.unwrap();
+
+        assert_eq!(clip.shortcode, test_shortcode);
+        assert_eq!(
+            clip.content,
+            format!("content for clip '{}'", test_shortcode)
+        );
+    }
 }

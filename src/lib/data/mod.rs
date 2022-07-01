@@ -76,21 +76,21 @@ impl From<DbId> for String {
 
 #[cfg(test)]
 pub mod test {
-    // use crate::data::*;
-    // use tokio::runtime::Handle;
+    use crate::data::*;
+    use tokio::runtime::Handle;
 
-    // pub fn new_db(handle: &Handle) -> AppDatabase {
-    //     use sqlx::migrate::Migrator;
-    //     use std::path::Path;
+    pub fn new_db(handle: &Handle) -> AppDatabase {
+        use sqlx::migrate::Migrator;
+        use std::path::Path;
 
-    //     handle.block_on(async move {
-    //         let db = Database::new(":memory:").await;
-    //         let migrator = Migrator::new(Path::new("./migrations")).await.unwrap();
+        handle.block_on(async move {
+            let db = Database::new(":memory:").await;
+            let migrator = Migrator::new(Path::new("./migrations")).await.unwrap();
 
-    //         let pool = db.get_pool();
-    //         migrator.run(pool).await.unwrap();
+            let pool = db.get_pool();
+            migrator.run(pool).await.unwrap();
 
-    //         db
-    //     })
-    // }
+            db
+        })
+    }
 }
