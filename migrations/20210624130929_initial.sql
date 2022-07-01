@@ -6,8 +6,8 @@ CREATE TABLE
         shortcode TEXT UNIQUE NOT NULL,
         content TEXT NOT NULL,
         title TEXT,
-        posted DATETIME NOT NULL,
-        expires DATETIME,
+        posted TIMESTAMP NOT NULL,
+        expires TIMESTAMP,
         password TEXT,
         hits BIGINT NOT NULL
     );

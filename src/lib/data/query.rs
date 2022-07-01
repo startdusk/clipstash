@@ -14,7 +14,7 @@ pub async fn get_clip<M: Into<model::GetClip>>(
     let shortcode = model.shortcode.as_str();
     Ok(sqlx::query_as!(
         model::Clip,
-        r#"SELECT * FROM clips WHERE shortcode = ?"#,
+        r#"SELECT * FROM clips WHERE shortcode = $1"#,
         shortcode
     )
     .fetch_one(pool)
@@ -36,7 +36,7 @@ pub async fn new_clip<M: Into<model::NewClip>>(
             expires,
             password,
             hits)
-            VALUES (?,?,?,?,?,?,?,?)"#,
+            VALUES ($1,$2,$3,$4,$5,$6,$7,$8)"#,
         model.clip_id,
         model.shortcode,
         model.content,
@@ -59,11 +59,11 @@ pub async fn update_clip<M: Into<model::UpdateClip>>(
     let model = model.into();
     let _ = sqlx::query!(
         r#"UPDATE clips SET 
-            content = ?,
-            expires = ?,
-            password = ?,
-            title = ?
-            WHERE shortcode = ?
+            content = $1,
+            expires = $2,
+            password = $3,
+            title = $4
+            WHERE shortcode = $5
         "#,
         model.content,
         model.expires,
