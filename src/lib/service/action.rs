@@ -1,3 +1,5 @@
+use rocket::Data;
+
 use crate::data::{query, DatabasePool, Transaction};
 use crate::service::ask;
 use crate::web::api::ApiKey;
@@ -56,4 +58,8 @@ pub async fn revoke_api_key(
 
 pub async fn api_key_is_valid(api_key: ApiKey, pool: &DatabasePool) -> Result<bool, ServiceError> {
     Ok(query::api_key_is_valid(api_key, pool).await?)
+}
+
+pub async fn delete_expired(pool: &DatabasePool) -> Result<u64, ServiceError> {
+    Ok(query::delete_expired(pool).await?)
 }
